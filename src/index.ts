@@ -1,4 +1,4 @@
 import BaseEntity from './BaseEntity'
-import { Attribute } from './Metadata/Attribute';
+import { attribute } from './Metadata/attribute';
 
-export { BaseEntity, Attribute }
+export { BaseEntity, attribute }

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-export function Attribute(required: boolean = false, defaultValue: object = null) {
+export function attribute(required: boolean = false, defaultValue: object = null) {
   return (
     target: any,
     propertyKey: string

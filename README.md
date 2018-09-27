@@ -22,15 +22,15 @@ yarn add und-base-entity
 
 ```typescript
 import { BaseEntity } from "und-base-entity";
-import { Attribute } from "und-base-entity";
+import { attribute } from "und-base-entity";
 
 class TestEntity extends BaseEntity {
-  @Attribute(true, () => {
+  @attribute(true, () => {
     return "default";
   })
   private firstName: string;
 
-  @Attribute(true)
+  @attribute(true)
   private lastName: string;
 
   public getFirstName(): string {

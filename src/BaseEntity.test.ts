@@ -1,15 +1,15 @@
 import BaseEntity from './BaseEntity';
-import { Attribute } from './Metadata/Attribute';
+import { attribute } from './Metadata/attribute';
 import { ValueRequiredNotFoundError } from './Exception';
 
 class TestEntity extends BaseEntity {
 
-  @Attribute(true, () => {
+  @attribute(true, () => {
     return 'default';
   })
   private firstName: string;
 
-  @Attribute(true)
+  @attribute(true)
   private lastName: string;
 
   public getFirstName(): string {
