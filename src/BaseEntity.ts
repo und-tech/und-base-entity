@@ -13,7 +13,7 @@ export default abstract class BaseEntity {
   }
 
   public fill(data: object, init: boolean = false) {
-    this.attributeMetaList.forEach(attribute => {
+    for (const attribute of this.attributeMetaList) {
       if (attribute.defaultValue &&
         data[attribute.name] === undefined &&
         init) {
@@ -25,8 +25,10 @@ export default abstract class BaseEntity {
         init) {
         throw new ValueRequiredNotFoundError(attribute.name);
       }
-      this.fillValue(attribute.name, data[attribute.name]);
-    });
+      if (data[attribute.name] !== undefined) {
+        this.fillValue(attribute.name, data[attribute.name]);
+      }
+    }
   }
 
   private fillValue(key: string, value: any) {
@@ -35,7 +37,7 @@ export default abstract class BaseEntity {
 
   public serialize(mapping: object = {}) {
     const serializeData = {};
-    this.attributeMetaList.forEach(attribute => {
+    this.attributeMetaList.forEach((attribute) => {
       const key = Object.keys(mapping).length ? mapping[attribute.name] : attribute.name;
       serializeData[key] = this[attribute.name];
     });
