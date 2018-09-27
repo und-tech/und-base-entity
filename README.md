@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/und-tech/und-base-entity.svg?branch=master)](https://travis-ci.org/und-tech/und-base-entity)
 
+[![Coverage Status](https://coveralls.io/repos/github/und-tech/und-base-entity/badge.svg?branch=master)](https://coveralls.io/github/und-tech/und-base-entity?branch=master)
+
 # Base Entity
 
 This module helps us reduce our code as it avoids the use of setters and getters. It also implements the concept of [introspection](https://en.wikipedia.org/wiki/Type_introspection).
