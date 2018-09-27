@@ -1,0 +1,40 @@
+{
+  "name": "und-base-entity",
+  "version": "0.0.1",
+  "description": "Base entity for our classes",
+  "main": "dist/index.js",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "lint": "eslint -c .eslintrc -f stylish src/**/*.ts",
+    "test": "jest",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "poo"
+  ],
+  "author": "Carlos Zárate <carmanuel.zarate@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/und-tech/und-base-entity.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/und-tech/und-base-entity/issues"
+  },
+  "homepage": "https://github.com/und-tech/und-base-entity#readme",
+  "dependencies": {
+    "reflect-metadata": "^0.1.12"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.2",
+    "eslint": "^5.6.0",
+    "eslint-config-und": "^0.0.2",
+    "eslint-plugin-typescript": "^0.12.0",
+    "jest": "^23.6.0",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^23.10.2",
+    "typescript": "~3.0.1",
+    "typescript-eslint-parser": "^19.0.1"
+  }
+}
