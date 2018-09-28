@@ -1,0 +1,6 @@
+.travis.yml
+/src
+tsconfig.json
+jest.config.json
+.editorconfig
+.eslint
