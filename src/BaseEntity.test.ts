@@ -3,7 +3,6 @@ import { attribute } from './Metadata/attribute';
 import { ValueRequiredNotFoundError } from './Exception';
 
 class TestEntity extends BaseEntity {
-
   @attribute(true, () => {
     return 'default';
   })
@@ -30,26 +29,31 @@ describe('Test BaseEntity Class', async () => {
   });
 
   test('Set value to attribute correctly firstName', () => {
-    return expect(instance.getFirstName()).toBe('Foo');
+    expect(instance.getFirstName()).toBe('Foo');
+    expect(instance.getLastName()).toBe('Bar');
   });
 
   test('Change attribute firstName to Hello', () => {
     instance.fill({
       firstName: 'Hello'
     });
-    return expect(instance.getFirstName()).toBe('Hello');
+    expect(instance.getFirstName()).toBe('Hello');
+    expect(instance.getLastName()).toBe('Bar');
   });
 
   test('Set throw exception in required attribute when init', () => {
-    return expect(() => {
-      instance.fill({
-        firstName: 'Foo'
-      }, true);
+    expect(() => {
+      instance.fill(
+        {
+          firstName: 'Foo'
+        },
+        true
+      );
     }).toThrowError(ValueRequiredNotFoundError);
   });
 
   test('Set throw exception in required attribute', () => {
-    return expect(() => {
+    expect(() => {
       new TestEntity({
         firstName: 'Foo'
       });
@@ -61,17 +65,28 @@ describe('Test BaseEntity Class', async () => {
       firstName: 'Foo',
       lastName: 'Bar'
     });
-    return expect(instance.serialize()).toEqual({
+    expect(instance.serialize()).toEqual({
       firstName: 'Foo',
       lastName: 'Bar'
+    });
+    expect(
+      instance.serialize({
+        firstName: 'first_name',
+        lastName: 'last_name'
+      })
+    ).toEqual({
+      first_name: 'Foo',
+      last_name: 'Bar'
     });
   });
 
   test('Test set default value', () => {
-    instance.fill({
-      lastName: 'Bar'
-    }, true);
-    return expect(instance.getFirstName()).toBe('default');
+    instance.fill(
+      {
+        lastName: 'Bar'
+      },
+      true
+    );
+    expect(instance.getFirstName()).toBe('default');
   });
-
 });

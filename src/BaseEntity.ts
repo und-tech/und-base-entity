@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import { ValueRequiredNotFoundError } from './Exception';
 
 export default abstract class BaseEntity {
-
   private attributeMetaList;
 
   public constructor(data: object = {}) {
@@ -14,15 +13,14 @@ export default abstract class BaseEntity {
 
   public fill(data: object, init: boolean = false) {
     for (const attribute of this.attributeMetaList) {
-      if (attribute.defaultValue &&
+      if (
+        attribute.defaultValue &&
         data[attribute.name] === undefined &&
-        init) {
+        init
+      ) {
         data[attribute.name] = attribute.defaultValue();
       }
-      if (
-        data[attribute.name] === undefined &&
-        attribute.required &&
-        init) {
+      if (data[attribute.name] === undefined && attribute.required && init) {
         throw new ValueRequiredNotFoundError(attribute.name);
       }
       if (data[attribute.name] !== undefined) {
@@ -37,8 +35,10 @@ export default abstract class BaseEntity {
 
   public serialize(mapping: object = {}) {
     const serializeData = {};
-    this.attributeMetaList.forEach((attribute) => {
-      const key = Object.keys(mapping).length ? mapping[attribute.name] : attribute.name;
+    this.attributeMetaList.forEach(attribute => {
+      const key = Object.keys(mapping).length
+        ? mapping[attribute.name]
+        : attribute.name;
       serializeData[key] = this[attribute.name];
     });
     return serializeData;
