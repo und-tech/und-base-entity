@@ -1,6 +1,6 @@
 {
   "name": "und-base-entity",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Base entity for our classes",
   "main": "dist/index.js",
   "scripts": {

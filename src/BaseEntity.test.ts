@@ -49,7 +49,7 @@ describe('Test BaseEntity Class', async () => {
         },
         true
       );
-    }).toThrowError(ValueRequiredNotFoundError);
+    }).toThrowError('Attribute lastName is required');
   });
 
   test('Set throw exception in required attribute', () => {
@@ -57,7 +57,7 @@ describe('Test BaseEntity Class', async () => {
       new TestEntity({
         firstName: 'Foo'
       });
-    }).toThrowError(ValueRequiredNotFoundError);
+    }).toThrowError('Attribute lastName is required');
   });
 
   test('Test Serialize data from entity', () => {
