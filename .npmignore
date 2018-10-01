@@ -1,5 +1,6 @@
 .travis.yml
 /src
+/coverage
 tsconfig.json
 jest.config.json
 .editorconfig
