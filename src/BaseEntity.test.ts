@@ -1,22 +1,19 @@
 import BaseEntity from './BaseEntity';
 import { attribute } from './Metadata/attribute';
-import { ValueRequiredNotFoundError } from './Exception';
 
 class TestEntity extends BaseEntity {
-  @attribute(true, () => {
-    return 'default';
-  })
+  @attribute(true, () => 'default')
   private firstName: string;
 
   @attribute(true)
-  private lastName: string;
+  private age: number;
 
   public getFirstName(): string {
     return this.firstName;
   }
 
-  public getLastName(): string {
-    return this.lastName;
+  public getAge(): number {
+    return this.age;
   }
 }
 
@@ -25,12 +22,12 @@ describe('Test BaseEntity Class', async () => {
 
   instance = new TestEntity({
     firstName: 'Foo',
-    lastName: 'Bar'
+    age: 28
   });
 
   test('Set value to attribute correctly firstName', () => {
     expect(instance.getFirstName()).toBe('Foo');
-    expect(instance.getLastName()).toBe('Bar');
+    expect(instance.getAge()).toBe(28);
   });
 
   test('Change attribute firstName to Hello', () => {
@@ -38,10 +35,10 @@ describe('Test BaseEntity Class', async () => {
       firstName: 'Hello'
     });
     expect(instance.getFirstName()).toBe('Hello');
-    expect(instance.getLastName()).toBe('Bar');
+    expect(instance.getAge()).toBe(28);
   });
 
-  test('Set throw exception in required attribute when init', () => {
+  test('Set throw exception in required attribute', () => {
     expect(() => {
       instance.fill(
         {
@@ -49,41 +46,44 @@ describe('Test BaseEntity Class', async () => {
         },
         true
       );
-    }).toThrowError('Attribute lastName is required');
+    }).toThrowError('Attribute age is required');
   });
 
-  test('Set throw exception in required attribute', () => {
+  test('Set throw exception in required attribute when init', () => {
     expect(() => {
       new TestEntity({
         firstName: 'Foo'
       });
-    }).toThrowError('Attribute lastName is required');
+    }).toThrowError('Attribute age is required');
   });
 
   test('Test Serialize data from entity', () => {
     instance.fill({
       firstName: 'Foo',
-      lastName: 'Bar'
+      age: 28
     });
     expect(instance.serialize()).toEqual({
       firstName: 'Foo',
-      lastName: 'Bar'
+      age: 28
     });
     expect(
       instance.serialize({
         firstName: 'first_name',
-        lastName: 'last_name'
+        age: {
+          name: 'age',
+          setFn: (value) => String(value)
+        }
       })
     ).toEqual({
       first_name: 'Foo',
-      last_name: 'Bar'
+      age: '28'
     });
   });
 
   test('Test set default value', () => {
     instance.fill(
       {
-        lastName: 'Bar'
+        age: 28
       },
       true
     );
