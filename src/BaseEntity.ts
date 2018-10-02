@@ -1,6 +1,13 @@
 import 'reflect-metadata';
 import { ValueRequiredNotFoundError } from './Exception';
 
+interface Mapping {
+  [key: string]: string | {
+    name: string;
+    setFn(value);
+  }
+}
+
 export default abstract class BaseEntity {
   private attributeMetaList;
 
@@ -33,13 +40,17 @@ export default abstract class BaseEntity {
     this[key] = value;
   }
 
-  public serialize(mapping: object = {}) {
+  public serialize(mapping: Mapping = {}) {
     const serializeData = {};
     this.attributeMetaList.forEach(attribute => {
       const key = Object.keys(mapping).length
         ? mapping[attribute.name]
         : attribute.name;
-      serializeData[key] = this[attribute.name];
+      if (typeof key === 'object') {
+        serializeData[key.name] = key.setFn(this[attribute.name]);
+      } else {
+        serializeData[key] = this[attribute.name];
+      }
     });
     return serializeData;
   }

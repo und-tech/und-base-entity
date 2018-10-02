@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 
-export function attribute(required: boolean = false, defaultValue: object = null) {
+export function attribute(
+  required: boolean = false,
+  defaultValue: object = null) {
   return (
     target: any,
     propertyKey: string
@@ -10,9 +12,9 @@ export function attribute(required: boolean = false, defaultValue: object = null
       attributeList = Reflect.getMetadata('attributeList', target);
     }
     attributeList.push({
+      defaultValue,
+      required,
       name: propertyKey,
-      defaultValue: defaultValue,
-      required: required
     });
     Reflect.defineMetadata('attributeList', attributeList, target);
   };
